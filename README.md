@@ -1,6 +1,6 @@
 # charCounter
 
-jQuery character counter for input fields
+jQuery character counter
 
 - jQuery 1.7.1 and up
 
