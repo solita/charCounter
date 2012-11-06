@@ -1,4 +1,4 @@
-# Slide
+# charCounter
 
 jQuery character counter for input fields
 
