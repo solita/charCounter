@@ -1,4 +1,4 @@
-// jquery.charCounter - version 0.3
+// jquery.charCounter - version 0.3.1
 
 ;(function($) {
 
