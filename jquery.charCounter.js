@@ -64,19 +64,19 @@
          $this.bind("keyup change", function(){
             calculate(this);
 
-            if (len > (options.allowed - options.warning) && options.onWarning !== undefined) {
+            if (len > (options.allowed - options.warning) && isFunc(options.onWarning)) {
                options.onWarning(this);
             }
 
-            if (len <= (options.allowed - options.warning) && options.onWarningOff !== undefined) {
+            if (len <= (options.allowed - options.warning) && isFunc(options.onWarningOff)) {
                options.onWarningOff(this);
             }
 
-            if (len > options.allowed && options.onDisallow !== undefined) {
+            if (len > options.allowed && isFunc(options.onDisallow)) {
                options.onDisallow(this);
             }
 
-            if (len <= options.allowed && options.onAllow !== undefined) {
+            if (len <= options.allowed && isFunc(options.onAllow)) {
                options.onAllow(this);
             }
          });
@@ -91,5 +91,9 @@
          })
       });
    };
+
+   function isFunc(func) {
+      return typeof func == 'function';
+   }
 
 })(jQuery);
