@@ -27,7 +27,7 @@
          } else {
             $(options.disableButton).prop('disabled', false);
          }
-      };
+      }
 
       function calculate(obj){
          var $obj = $(obj);
@@ -50,7 +50,7 @@
          } else {
             $obj.next().html(available + options.counterText );
          }
-      };
+      }
 
       this.each(function() {
          var $this = $(this);
