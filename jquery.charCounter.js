@@ -57,7 +57,7 @@
          var value = $this.val();
          var len = value.length;
 
-         $this.after('<div id="'+ this.id +'Counter" class="' + options.css + '">'+ options.counterText +'</div>');
+         $this.after( template({ id: this.id, css: options.css, text: options.counterText }) );
 
          calculate(this);
 
@@ -91,6 +91,10 @@
          })
       });
    };
+
+   function template(opts) {
+      return '<div id="'+ opts.id +'Counter" class="' + opts.css + '">'+ opts.text +'</div>'
+   }
 
    function isFunc(func) {
       return typeof func == 'function';
