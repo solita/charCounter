@@ -28,7 +28,7 @@
          }
       }
 
-      function calculate(obj){
+      function calculate(obj, $counter){
          var $obj = $(obj);
          var value = $obj.val();
          var count = value.length;
@@ -43,11 +43,11 @@
          }
 
          if (options.direction == 'up') {
-            $obj.next().html(count + '/' + options.allowed + options.counterText);
+            $counter.html(count + '/' + options.allowed + options.counterText);
          } else if (options.direction == 'down') {
-            $obj.next().html(available + '/' + options.allowed + options.counterText);
+            $counter.html(available + '/' + options.allowed + options.counterText);
          } else {
-            $obj.next().html(available + options.counterText );
+            $counter.html(available + options.counterText );
          }
       }
 
@@ -55,16 +55,17 @@
          var $this = $(this);
          var value = $this.val();
          var len = value.length;
+         var $counter = $(template({ id: this.id, css: options.css, text: options.counterText }));
 
-         $this.after( template({ id: this.id, css: options.css, text: options.counterText }) );
+         $this.after($counter);
 
-         calculate(this);
+         calculate(this, $counter);
 
          $this.bind("keyup change", function(){
             var value = $this.val();
             var len = value.length;
 
-            calculate(this);
+            calculate(this, $counter);
 
             if (len > (options.allowed - options.warning) && isFunc(options.onWarning)) {
                options.onWarning(this);
