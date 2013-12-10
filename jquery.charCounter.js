@@ -22,9 +22,9 @@
 
       function disableButton(count) {
          if (count > options.allowed) {
-            $(options.disableButton).prop('disabled', true);
+            $(options.disableButton).attr('disabled', 'disabled');
          } else {
-            $(options.disableButton).prop('disabled', false);
+            $(options.disableButton).removeAttr('disabled');
          }
       }
 
