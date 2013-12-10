@@ -22,11 +22,11 @@ Example usage with all the options:
 
 ## Author
 
-Juhana Harmainen (@harmia)
+Juhana Harmanen ([@harmia](https://github.com/harmia))
 
 ## Contributors
 
-Antti-Jussi Kovalainen (@darep): Clean-up, error fixing and optimization
+Antti-Jussi Kovalainen ([@Darep](https://github.com/Darep)): Clean-up, error fixing and optimization
 
 ## License
 
