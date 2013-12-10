@@ -6,13 +6,12 @@ Example usage with all the options:
 
 ```javascript
 $(".count-chars").counter({
-    allowed: 160,
-    warning: 25,
-    css: 'counter',
+    allowed: 160,  // maximum allowed
+    warning: 25,  // number of characters left when to show warning
+    css: 'counter',  // counter CSS class
     counterText: ' characters',
     allowOverflow: true,
-    direction: 'up',
-    disableButton: 'input#submit',
+    direction: 'up',  // 'up', 'down' or null
     onWarning: function(input, counter) { /* ... */ },
     onWarningOff: function(input, counter) { /* ... */ },
     onDisallow: function(input, counter) {/* ... */ },
