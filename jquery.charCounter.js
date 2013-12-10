@@ -1,5 +1,4 @@
-// jQuery Character Counter - version 0.2
-// by Juhana Harmanen (harmia)
+// jquery.charCounter - version 0.3
 
 ;(function($) {
 
