@@ -61,6 +61,9 @@
          calculate(this);
 
          $this.bind("keyup change", function(){
+            var value = $this.val();
+            var len = value.length;
+
             calculate(this);
 
             if (len > (options.allowed - options.warning) && isFunc(options.onWarning)) {
