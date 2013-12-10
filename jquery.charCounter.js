@@ -68,19 +68,19 @@
             calculate(this, $counter);
 
             if (len > (options.allowed - options.warning) && isFunc(options.onWarning)) {
-               options.onWarning(this);
+               options.onWarning(this, $counter);
             }
 
             if (len <= (options.allowed - options.warning) && isFunc(options.onWarningOff)) {
-               options.onWarningOff(this);
+               options.onWarningOff(this, $counter);
             }
 
             if (len > options.allowed && isFunc(options.onDisallow)) {
-               options.onDisallow(this);
+               options.onDisallow(this, $counter);
             }
 
             if (len <= options.allowed && isFunc(options.onAllow)) {
-               options.onAllow(this);
+               options.onAllow(this, $counter);
             }
          });
 
