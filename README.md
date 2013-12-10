@@ -1,24 +1,24 @@
 # jquery.charCounter
 
-jQuery character counter
-
-- jQuery 1.7.1 and up
+Character counter for jQuery 1.7.1 and up.
 
 Example usage with all the options:
 
-    $(".charCounter").counter({
-        allowed: 160,
-        warning: 25,
-        css: 'counter',
-        counterText: ' characters',
-        allowOverflow: true,
-        direction: 'up',
-        disableButton: 'input#submit',
-        onWarning: function(obj) { $(obj).parent().after().css('color', '#F9CBBB'); },
-        onWarningOff: function(obj) { $(obj).parent().after().css('color', 'black'); },
-        onDisallow: function(obj) { $(obj).css('background-color', '#F9CBBB'); },
-        onAllow: function(obj) { $(obj).css('background-color', 'white'); }
-    });
+```javascript
+$(".count-chars").counter({
+    allowed: 160,
+    warning: 25,
+    css: 'counter',
+    counterText: ' characters',
+    allowOverflow: true,
+    direction: 'up',
+    disableButton: 'input#submit',
+    onWarning: function(input, counter) { /* ... */ },
+    onWarningOff: function(input, counter) { /* ... */ },
+    onDisallow: function(input, counter) {/* ... */ },
+    onAllow: function(input, counter) { /* ... */ }
+});
+```
 
 ## Author
 
