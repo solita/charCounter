@@ -1,9 +1,9 @@
-// jQuery Character Counter - version 0.2
-// by Juhana Harmanen (harmia)
-(function($) {
+// jquery.charCounter - version 0.4.0
+
+;(function($) {
 
    $.fn.counter = function(options){
-     
+
       // default configuration properties
       var defaults = {
          allowed: 140,
@@ -16,82 +16,91 @@
          onWarningOff: null,
          onDisallow: null,
          onAllow: null
-      }; 
-         
-      var options = $.extend(defaults, options); 
-      
-      function onAllow(obj){
-         $(obj).removeProp('background');
       };
-      
-      function onDisallow(obj){
-         $(obj).css('background-color', '#F9CBBB');
-      };
-      
+
+      var options = $.extend(defaults, options);
+
       function disableButton(count) {
          if (count > options.allowed) {
-            $(options.disableButton).prop('disabled', true);
+            $(options.disableButton).attr('disabled', 'disabled');
          } else {
-            $(options.disableButton).prop('disabled', false);
+            $(options.disableButton).removeAttr('disabled');
          }
-      };
-      
-      function calculate(obj){
-         var count = $(obj).val().length;
-          
+      }
+
+      function calculate(obj, $counter){
+         var $obj = $(obj);
+         var value = $obj.val();
+         var count = value.length;
+         var available = options.allowed - count;
+
          if (!options.allowOverflow && count > options.allowed) {
-            $(obj).val($(obj).val().substring(0, options.allowed));
-         } 
-          
+            $obj.val(value.substring(0, options.allowed));
+         }
+
          if (options.disableButton) {
             disableButton(count);
          }
-            
-            
-            
-         var available = options.allowed - count;
-         
+
          if (options.direction == 'up') {
-            $(obj).next().html(count + '/' + options.allowed + options.counterText);
+            $counter.html(count + '/' + options.allowed + options.counterText);
          } else if (options.direction == 'down') {
-            $(obj).next().html(available + '/' + options.allowed + options.counterText);
+            $counter.html(available + '/' + options.allowed + options.counterText);
          } else {
-            $(obj).next().html(available + options.counterText );
+            $counter.html(available + options.counterText );
          }
-      };
-      
+      }
+
       this.each(function() {
-         $(this).after('<div id="'+ this.id +'Counter" class="' + options.css + '">'+ options.counterText +'</div>');
-         
-         calculate(this);
-         
-         $(this).bind("keyup change", function(){
-            calculate(this);
-             
-            if ($(this).val().length > (options.allowed - options.warning) && options.onWarning !== undefined) {
-               options.onWarning(this);
-            } 
-            if ($(this).val().length <= (options.allowed - options.warning) && options.onWarningOff !== undefined) {
-               options.onWarningOff(this);
+         var $this = $(this);
+         var value = $this.val();
+         var len = value.length;
+         var $counter = $(template({ id: this.id, css: options.css, text: options.counterText }));
+
+         $this.after($counter);
+
+         calculate(this, $counter);
+
+         $this.bind("keyup change", function(){
+            var value = $this.val();
+            var len = value.length;
+
+            calculate(this, $counter);
+
+            if (len > (options.allowed - options.warning) && isFunc(options.onWarning)) {
+               options.onWarning(this, $counter);
             }
-                
-            if ($(this).val().length > options.allowed && options.onDisallow !== undefined) {
-               options.onDisallow(this);
+
+            if (len <= (options.allowed - options.warning) && isFunc(options.onWarningOff)) {
+               options.onWarningOff(this, $counter);
             }
-            if ($(this).val().length <= options.allowed && options.onAllow !== undefined) {
-               options.onAllow(this);
-            }                
+
+            if (len > options.allowed && isFunc(options.onDisallow)) {
+               options.onDisallow(this, $counter);
+            }
+
+            if (len <= options.allowed && isFunc(options.onAllow)) {
+               options.onAllow(this, $counter);
+            }
          });
-         
-         $(this).keypress(function(event) {
-            //  if allowed length is reached, allow only modify actions
+
+         $this.keypress(function(event) {
             if (!options.allowOverflow && $(this).val().length >= options.allowed) {
+               // block anything but text modify actions
                event = ( event ) ? event : window.event;
                var charCode = ( event.which ) ? event.which : event.keyCode
-               return charCode == 8 || charCode == 46 || (charCode >= 33 && charCode <= 40) 
+               return charCode == 8 || charCode == 46 || (charCode >= 33 && charCode <= 40)
             }
          })
-      });     
+      });
    };
+
+   function template(opts) {
+      return '<div id="'+ opts.id +'Counter" class="' + opts.css + '">'+ opts.text +'</div>'
+   }
+
+   function isFunc(func) {
+      return typeof func == 'function';
+   }
 
 })(jQuery);
